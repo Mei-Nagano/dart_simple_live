@@ -1,0 +1,44 @@
+name: Flutter CI
+
+on:
+  push:
+    branches:
+      - main # 或者您项目的主分支名称，例如 master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # 使用最新的 Ubuntu 运行器
+
+    steps:
+      - name: 🔍 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🐦 Setup Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.x.x' # 指定您项目使用的 Flutter 版本，例如 '3.19.6' 或 '3.x.x'
+          channel: 'stable'
+
+      - name: ⬇️ Get Flutter dependencies
+        run: flutter pub get
+
+      - name: 🧪 Run Flutter tests
+        run: flutter test # 可选：运行项目中的所有单元测试
+
+      - name: 📦 Build Android APK
+        run: flutter build apk --release
+
+      - name: 🌐 Build Web app
+        run: flutter build web --release
+
+      - name: ⬆️ Upload Android APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+
+      - name: ⬆️ Upload Web app artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-app
+          path: build/web # Web 应用的默认输出目录
