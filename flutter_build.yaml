@@ -3,7 +3,7 @@ name: Flutter CI
 on:
   push:
     branches:
-      - main # 或者您项目的主分支名称，例如 master
+      - master # 或者您项目的主分支名称，例如 master
 
 jobs:
   build:
@@ -16,7 +16,7 @@ jobs:
       - name: 🐦 Setup Flutter SDK
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.x.x' # 指定您项目使用的 Flutter 版本，例如 '3.19.6' 或 '3.x.x'
+          flutter-version: '3.22' # 指定您项目使用的 Flutter 版本，例如 '3.19.6' 或 '3.x.x'
           channel: 'stable'
 
       - name: ⬇️ Get Flutter dependencies
